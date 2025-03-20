@@ -1,0 +1,13 @@
+{
+  "name": "azure-static-app-api",
+  "version": "1.0.0",
+  "description": "Azure Functions API for user auth",
+  "main": "index.js",
+  "scripts": {
+    "start": "func start"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "jsonwebtoken": "^8.5.1"
+  }
+}
