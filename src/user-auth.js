@@ -86,7 +86,12 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
           <div class="form-group">
             <label for="login-password">Password</label>
-            <input type="password" id="login-password" placeholder="Enter password" required />
+            <div class="password-input-wrapper">
+              <input type="password" id="login-password" placeholder="Enter password" required />
+              <button type="button" class="password-toggle-btn" aria-label="Toggle password visibility">
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
           </div>
           <button type="submit" class="login-btn">Login</button>
           <div id="login-error" class="login-error"></div>
@@ -94,6 +99,18 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
 
       const loginForm = document.getElementById('login-form');
+      const passwordInput = document.getElementById('login-password');
+      const toggleBtn = document.querySelector('.password-toggle-btn');
+      
+      // Setup password toggle functionality
+      toggleBtn.addEventListener('click', () => {
+        const isPassword = passwordInput.type === 'password';
+        passwordInput.type = isPassword ? 'text' : 'password';
+        toggleBtn.innerHTML = isPassword 
+          ? '<i class="fas fa-eye-slash"></i>' 
+          : '<i class="fas fa-eye"></i>';
+      });
+
       loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const username = document.getElementById('login-username').value.trim();
@@ -135,7 +152,12 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
           <div class="form-group">
             <label for="signup-password">Password</label>
-            <input type="password" id="signup-password" placeholder="Choose a password" required />
+            <div class="password-input-wrapper">
+              <input type="password" id="signup-password" placeholder="Choose a password" required />
+              <button type="button" class="password-toggle-btn" aria-label="Toggle password visibility">
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
           </div>
           <button type="submit" class="login-btn">Sign Up</button>
           <div id="signup-error" class="login-error"></div>
@@ -143,6 +165,18 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
 
       const signupForm = document.getElementById('signup-form');
+      const passwordInput = document.getElementById('signup-password');
+      const toggleBtn = document.querySelector('.password-toggle-btn');
+      
+      // Setup password toggle functionality
+      toggleBtn.addEventListener('click', () => {
+        const isPassword = passwordInput.type === 'password';
+        passwordInput.type = isPassword ? 'text' : 'password';
+        toggleBtn.innerHTML = isPassword 
+          ? '<i class="fas fa-eye-slash"></i>' 
+          : '<i class="fas fa-eye"></i>';
+      });
+
       signupForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const username = document.getElementById('signup-username').value.trim();
