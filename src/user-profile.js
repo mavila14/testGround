@@ -10,6 +10,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const profileSection = document.getElementById('profile-section');
   if (!profileSection) return;
 
+  // New check: if user is not authenticated, prompt to log in
+  if (!localStorage.getItem('token')) {
+    profileSection.innerHTML = `
+      <div class="error-message">
+        <h3>Please log in or register to access your profile.</h3>
+        <p><a href="index.html">Return to Home</a></p>
+      </div>
+    `;
+    return;
+  }
+
   // Constants & Elements
   const API_BASE_URL = '/api';
   const profileForm = document.getElementById('profile-form');
