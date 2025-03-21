@@ -1253,3 +1253,363 @@ input.invalid, select.invalid, textarea.invalid {
   color: var(--neutral-800);
   background-color: var(--neutral-200);
 }
+
+/* User Profile Page Specific Styles */
+
+/* Profile Page Layout */
+.profile-form {
+  margin-top: var(--space-6);
+  transition: all var(--transition);
+}
+
+.section-description {
+  color: var(--neutral-600);
+  margin-bottom: var(--space-6);
+}
+
+/* Profile Section Titles */
+.profile-section-title {
+  display: flex;
+  align-items: center;
+  margin: var(--space-8) 0 var(--space-4) 0;
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--neutral-200);
+}
+
+.profile-section-title i {
+  font-size: 1.2rem;
+  color: var(--primary);
+  margin-right: var(--space-2);
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-light);
+  border-radius: 50%;
+}
+
+.profile-section-title h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: var(--neutral-800);
+}
+
+/* Profile Form Inputs */
+.profile-form .form-group {
+  margin-bottom: var(--space-6);
+}
+
+.input-tip {
+  font-size: 0.8rem;
+  color: var(--neutral-500);
+  margin-top: var(--space-1);
+  transition: all var(--transition-fast);
+}
+
+.form-group:hover .input-tip {
+  color: var(--primary);
+}
+
+/* Completion Progress Bar */
+.profile-completion {
+  background-color: var(--neutral-100);
+  padding: var(--space-4);
+  border-radius: 8px;
+  margin-bottom: var(--space-6);
+}
+
+.completion-bar {
+  height: 8px;
+  background-color: var(--neutral-200);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: var(--space-2);
+}
+
+.completion-progress {
+  height: 100%;
+  background-color: var(--primary);
+  width: 0%;
+  transition: width 0.8s ease, background-color 0.8s ease;
+}
+
+.completion-text {
+  font-size: 0.9rem;
+  color: var(--neutral-600);
+  text-align: right;
+}
+
+/* Form Actions */
+.form-actions {
+  margin-top: var(--space-8);
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Success Message */
+.profile-result {
+  padding: var(--space-8) var(--space-4);
+  text-align: center;
+  opacity: 0;
+}
+
+.profile-result.hidden {
+  display: none;
+}
+
+.success-message {
+  margin-bottom: var(--space-8);
+}
+
+.success-message i {
+  font-size: 3rem;
+  color: var(--success);
+  margin-bottom: var(--space-4);
+}
+
+.success-message h3 {
+  color: var(--success);
+  margin-bottom: var(--space-2);
+}
+
+.success-message p {
+  color: var(--neutral-600);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Next Steps Section */
+.next-steps {
+  background-color: var(--neutral-100);
+  padding: var(--space-6);
+  border-radius: 8px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.next-steps h4 {
+  margin-top: 0;
+  margin-bottom: var(--space-4);
+  color: var(--neutral-700);
+}
+
+.next-steps-buttons {
+  display: flex;
+  gap: var(--space-4);
+  justify-content: center;
+}
+
+.action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  background-color: white;
+  border: 1px solid var(--neutral-300);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  flex: 1;
+  max-width: 200px;
+}
+
+.action-btn i {
+  font-size: 1.5rem;
+  margin-bottom: var(--space-2);
+  color: var(--primary);
+}
+
+.action-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary-light);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .next-steps-buttons {
+    flex-direction: column;
+  }
+  
+  .action-btn {
+    max-width: 100%;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .profile-section-title {
+    border-bottom-color: var(--neutral-700);
+  }
+  
+  .profile-completion {
+    background-color: var(--neutral-800);
+  }
+  
+  .completion-bar {
+    background-color: var(--neutral-700);
+  }
+  
+  .next-steps {
+    background-color: var(--neutral-800);
+  }
+  
+  .action-btn {
+    background-color: var(--neutral-700);
+    border-color: var(--neutral-600);
+  }
+}
+
+/* Profile Navigation and Integration Styles */
+
+/* Profile Prompt for users who haven't completed profile */
+.profile-prompt {
+  background: linear-gradient(135deg, var(--primary-light) 0%, rgba(168, 85, 247, 0.1) 100%);
+  border-radius: 12px;
+  padding: var(--space-4);
+  margin: var(--space-4) 0;
+  text-align: center;
+  box-shadow: var(--shadow);
+  animation: fadeIn 0.5s ease-out;
+}
+
+.profile-prompt-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.profile-prompt-content i {
+  font-size: 2rem;
+  color: var(--primary);
+}
+
+.profile-prompt-content p {
+  margin: 0;
+  color: var(--neutral-700);
+  font-size: 1.1rem;
+}
+
+.profile-prompt .action-btn {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: var(--space-2) var(--space-4);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  margin-top: var(--space-2);
+}
+
+.profile-prompt .action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Profile completion indicator for partial profiles */
+.profile-completion-indicator {
+  background-color: white;
+  border-radius: 8px;
+  padding: var(--space-2);
+  margin: var(--space-4) 0;
+  box-shadow: var(--shadow-sm);
+}
+
+.completion-indicator-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.completion-text {
+  font-size: 0.9rem;
+  color: var(--neutral-600);
+}
+
+.mini-completion-bar {
+  height: 6px;
+  background-color: var(--neutral-200);
+  border-radius: 3px;
+  overflow: hidden;
+  flex: 1;
+  max-width: 150px;
+}
+
+.mini-completion-progress {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+  transition: width 0.8s ease;
+}
+
+.small-action-btn {
+  background-color: var(--primary-light);
+  color: var(--primary);
+  border: none;
+  border-radius: 4px;
+  padding: var(--space-1) var(--space-2);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.small-action-btn:hover {
+  background-color: var(--primary);
+  color: white;
+}
+
+/* Dashboard preview for integration */
+.dashboard-preview {
+  text-align: center;
+  padding: var(--space-8) var(--space-4);
+  margin-top: var(--space-8);
+}
+
+.dashboard-preview i {
+  font-size: 3rem;
+  color: var(--primary-light);
+  margin-bottom: var(--space-4);
+}
+
+.dashboard-preview h3 {
+  color: var(--neutral-600);
+  margin-bottom: var(--space-4);
+}
+
+/* Mobile styles for profile integration */
+@media (max-width: 768px) {
+  .completion-indicator-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+  
+  .mini-completion-bar {
+    max-width: 100%;
+    width: 100%;
+  }
+  
+  .small-action-btn {
+    align-self: flex-end;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .profile-prompt {
+    background: linear-gradient(135deg, rgba(90, 103, 216, 0.2) 0%, rgba(168, 85, 247, 0.2) 100%);
+  }
+  
+  .profile-completion-indicator {
+    background-color: var(--neutral-800);
+  }
+  
+  .mini-completion-bar {
+    background-color: var(--neutral-700);
+  }
+}
