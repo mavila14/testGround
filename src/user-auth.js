@@ -1,6 +1,13 @@
+/***************************************************************
+ * user-auth.js
+ *
+ * Provides login & signup forms for your Azure Static Web App,
+ * calling the Functions at /api/Register and /api/Login.
+ ***************************************************************/
 document.addEventListener('DOMContentLoaded', () => {
   const userProfile = document.getElementById('user-profile');
-  const API_BASE_URL = '/api'; // Points to your Azure Functions
+  // For Azure Static Web Apps, the Functions are accessible at /api
+  const API_BASE_URL = '/api';
 
   // Check if there's a JWT in localStorage
   const token = localStorage.getItem('token');
@@ -17,7 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
    ****************************************************/
 
   function showUserProfile() {
+    // We stored the username in localStorage upon login.
     const username = localStorage.getItem('username') || 'User';
+
     userProfile.innerHTML = `
       <div class="user-info">
         <div class="user-avatar default">${username.charAt(0).toUpperCase()}</div>
@@ -30,8 +39,10 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
 
     document.querySelector('.logout-btn').addEventListener('click', () => {
+      // Clear the JWT and username from localStorage
       localStorage.removeItem('token');
       localStorage.removeItem('username');
+      // Show the login/signup tabs again
       renderAuthTabs();
     });
   }
