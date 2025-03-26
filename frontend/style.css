@@ -31,9 +31,9 @@ body {
   background: none;
   border: none;
   color: #5a67d8;
-  font-size: 20px;
+  font-size: 24px;
   cursor: pointer;
-  padding: 4px;
+  padding: 8px;
 }
 
 .close-menu {
@@ -230,31 +230,56 @@ body {
   gap: 12px;
 }
 
-#takePhotoBtn {
+/* Standard button styles for consistency */
+.btn {
+  display: inline-block;
+  text-align: center;
   background-color: #5a67d8;
   color: #ffffff;
-  padding: 10px 16px;
+  padding: 12px 16px;
   border-radius: 6px;
   border: none;
   cursor: pointer;
+  font-weight: 500;
   transition: background-color 0.2s ease;
+  width: 100%;
+  font-size: 16px;
 }
 
-#takePhotoBtn:hover {
+.btn:hover {
   background-color: #4c51bf;
 }
 
-.upload-btn {
-  background-color: #5a67d8;
-  color: #ffffff;
-  padding: 10px 16px;
-  border-radius: 6px;
-  cursor: pointer;
-  display: inline-block;
-  transition: background-color 0.2s ease;
+.btn-primary {
+  background-color: #A855F7;
 }
 
-.upload-btn:hover {
+.btn-primary:hover {
+  background-color: #9333EA;
+}
+
+.btn-secondary {
+  background-color: #5a67d8;
+}
+
+#takePhotoBtn, .upload-btn {
+  background-color: #5a67d8;
+  color: #ffffff;
+  padding: 12px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+  text-align: center;
+  width: 100%;
+  font-size: 16px;
+}
+
+.upload-btn {
+  display: inline-block;
+}
+
+#takePhotoBtn:hover, .upload-btn:hover {
   background-color: #4c51bf;
 }
 
@@ -270,6 +295,7 @@ body {
   margin-top: 24px;
   transition: background-color 0.2s ease;
   font-size: 16px;
+  text-align: center;
 }
 
 .cta-button:hover {
@@ -413,21 +439,24 @@ body {
   
   .mobile-header {
     display: flex;
+    height: 60px;
+    box-sizing: border-box;
   }
   
   .sidebar {
     position: fixed;
-    left: -280px;
+    left: -300px; /* Push completely off-screen */
     top: 0;
     bottom: 0;
     transition: transform 0.3s ease;
     width: 280px;
     padding-top: 20px;
     overflow-y: auto;
+    transform: translateX(0); /* Start off-screen */
   }
   
   .sidebar.show {
-    transform: translateX(280px);
+    transform: translateX(300px); /* Move on-screen */
   }
   
   .sidebar-header {
@@ -439,12 +468,16 @@ body {
   }
   
   .main-content {
-    padding: 20px;
-    margin-top: 70px; /* Add space for fixed header */
+    padding: 16px;
+    margin-top: 60px; /* Add space for fixed header */
+    width: 100%;
+    box-sizing: border-box;
   }
   
   .form-card, .results {
     padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
   }
   
   .overlay.show {
@@ -458,5 +491,15 @@ body {
   .upload-btn, #takePhotoBtn {
     width: 100%;
     text-align: center;
+    box-sizing: border-box;
+  }
+  
+  /* Make all buttons consistent on mobile */
+  .btn, #takePhotoBtn, .upload-btn, .cta-button {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
   }
 }
