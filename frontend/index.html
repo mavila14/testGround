@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
     rel="stylesheet"
   >
   <link
@@ -25,11 +25,11 @@
     <!-- Sidebar (always visible; no mobile hamburger menu) -->
     <div class="sidebar">
       <div class="sidebar-header">
-        <h2 class="logo">Munger AI</h2>
+        <h2 class="logo"><i class="fas fa-brain"></i> Munger AI</h2>
       </div>
       <ul>
-        <li class="active">Decision Tool</li>
-        <li>My Profile</li>
+        <li class="active"><i class="fas fa-calculator"></i> Decision Tool</li>
+        <li><i class="fas fa-user"></i> My Profile</li>
       </ul>
       <div class="login-section">
         <h3>Login</h3>
@@ -42,8 +42,12 @@
 
     <!-- Main Content -->
     <div class="main-content">
-      <h1>Should you buy it? Let Charlie Munger decide.</h1>
-      <p class="subtitle">Get direct purchase advice using the wisdom of legendary investor Charlie Munger.</p>
+      <!-- Hero Section -->
+      <div class="hero-section">
+        <div class="hero-badge"><i class="fas fa-star"></i> Powered by AI</div>
+        <h1 class="hero-title">Should you buy it?</h1>
+        <p class="hero-subtitle">Get direct purchase advice using the wisdom of legendary investor Charlie Munger</p>
+      </div>
       
       <div class="form-card">
         <label for="itemName">What are you buying?</label>
@@ -97,17 +101,17 @@
 
         <button
           type="button"
-          class="cta-button btn btn-primary"
+          class="cta-button"
           id="analyzeBtn"
         >
-          SHOULD I BUY IT?
+          <i class="fas fa-check-circle"></i> SHOULD I BUY IT?
         </button>
       </div>
 
       <div id="resultContainer" class="results hidden">
         <div id="loadingIndicator" class="loading-indicator">
           <div class="spinner"></div>
-          <p>Asking Charlie Munger for advice...</p>
+          <p>Consulting Charlie Munger's wisdom...</p>
         </div>
         <div id="resultContent"></div>
       </div>
