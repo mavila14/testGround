@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Munger AI - Make smart purchase decisions in seconds with our AI advisor">
   <title>Munger AI | Smart Purchase Decisions</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,7 +16,7 @@
     <!-- Mobile Header Bar -->
     <div class="mobile-header">
       <h2 class="logo">Munger AI</h2>
-      <button class="menu-toggle" id="menuToggle">
+      <button type="button" class="menu-toggle" id="menuToggle" aria-label="Open menu">
         <i class="fas fa-bars"></i>
       </button>
     </div>
@@ -24,7 +25,7 @@
     <div class="sidebar" id="sidebar">
       <div class="sidebar-header">
         <h2 class="logo">Munger AI</h2>
-        <button class="close-menu" id="closeMenu">
+        <button type="button" class="close-menu" id="closeMenu" aria-label="Close menu">
           <i class="fas fa-times"></i>
         </button>
       </div>
@@ -34,9 +35,9 @@
       </ul>
       <div class="login-section">
         <h3>Login</h3>
-        <input type="text" placeholder="Username" />
-        <input type="password" placeholder="Password" />
-        <button class="btn">Login</button>
+        <input type="text" placeholder="Username" aria-label="Username" />
+        <input type="password" placeholder="Password" aria-label="Password" />
+        <button type="button" class="btn">Login</button>
         <p class="signup">Sign Up</p>
       </div>
     </div>
@@ -54,13 +55,18 @@
         <div class="image-section">
           <p>Image of the Item</p>
           <div class="image-buttons">
-            <button id="takePhotoBtn" class="btn btn-secondary">Take Photo</button>
-            <label for="imageUpload" class="upload-btn btn btn-secondary">Upload Image</label>
+            <button type="button" id="takePhotoBtn" class="btn btn-secondary">
+              <i class="fas fa-camera"></i> Take Photo
+            </button>
+            <label for="imageUpload" class="upload-btn btn btn-secondary">
+              <i class="fas fa-upload"></i> Upload Image
+            </label>
             <input
               type="file"
               id="imageUpload"
               accept="image/*"
               style="display: none;"
+              aria-label="Upload image"
             />
           </div>
           <div id="imagePreview" class="image-preview"></div>
@@ -69,13 +75,17 @@
           <div id="cameraContainer" class="camera-container hidden">
             <video id="cameraStream" autoplay playsinline></video>
             <div class="camera-controls">
-              <button id="captureBtn" class="btn btn-secondary"><i class="fas fa-camera"></i> Capture</button>
-              <button id="cancelCameraBtn" class="btn"><i class="fas fa-times"></i> Cancel</button>
+              <button type="button" id="captureBtn" class="btn btn-secondary">
+                <i class="fas fa-camera"></i> Capture
+              </button>
+              <button type="button" id="cancelCameraBtn" class="btn">
+                <i class="fas fa-times"></i> Cancel
+              </button>
             </div>
           </div>
         </div>
 
-        <button class="cta-button btn btn-primary" id="analyzeBtn">SHOULD I BUY IT?</button>
+        <button type="button" class="cta-button btn btn-primary" id="analyzeBtn">SHOULD I BUY IT?</button>
       </div>
 
       <div id="resultContainer" class="results hidden">
