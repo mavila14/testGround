@@ -82,4 +82,46 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
     }
   });
+
+  // Add a test button to HTML
+  const formCard = document.querySelector('.form-card');
+  const testButton = document.createElement('button');
+  testButton.textContent = 'Test API Connection';
+  testButton.classList.add('cta-button');
+  testButton.style.marginTop = '10px';
+  testButton.style.backgroundColor = '#4CAF50';
+  formCard.appendChild(testButton);
+
+  // Add event listener for test button
+  testButton.addEventListener('click', async () => {
+    resultContainer.innerHTML = "<p>Testing API connection...</p>";
+    
+    try {
+      const response = await fetch('/api/test', {
+        method: 'GET'
+      });
+      
+      console.log('Test API response status:', response.status);
+      
+      if (!response.ok) {
+        const errText = await response.text();
+        throw new Error(`HTTP Error: ${response.status} - ${errText}`);
+      }
+      
+      const data = await response.json();
+      resultContainer.innerHTML = `
+        <h2>API Test Results</h2>
+        <p>Status: ${data.status}</p>
+        <p>Message: ${data.message}</p>
+        <p>This means the API is reachable. If the main function isn't working,
+        the issue is likely in the analyze.py file.</p>
+      `;
+    } catch (error) {
+      console.error('Test API error:', error);
+      resultContainer.innerHTML = `
+        <p style="color:red;">API Test Failed: ${error.message}</p>
+        <p>This suggests your API endpoints aren't being properly deployed or configured.</p>
+      `;
+    }
+  });
 });
