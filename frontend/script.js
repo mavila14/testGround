@@ -22,9 +22,14 @@ document.addEventListener("DOMContentLoaded", () => {
   let stream = null;
   let capturedImage = null;
   
-  // Mobile menu toggle functions - ensure sidebar is completely hidden initially
-  document.body.classList.add('menu-closed');
+  // Ensure mobile menu is properly hidden on page load
+  // This is the key fix for the mobile sidebar issue
+  if (window.innerWidth <= 768) {
+    sidebar.style.transform = "translateX(-100%)";
+    document.body.classList.add('menu-closed');
+  }
   
+  // Mobile menu toggle functions
   menuToggle.addEventListener("click", () => {
     sidebar.classList.add("show");
     overlay.classList.add("show");
@@ -195,6 +200,62 @@ document.addEventListener("DOMContentLoaded", () => {
     } finally {
       // Hide loading indicator
       loadingIndicator.classList.add("hidden");
+    }
+  });
+  
+  // Handle window resize to ensure mobile menu behavior is consistent
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) {
+      // Reset for desktop
+      sidebar.style.transform = "";
+      document.body.style.overflow = "";
+      overlay.classList.remove("show");
+    } else if (!sidebar.classList.contains("show")) {
+      // Ensure sidebar is hidden on mobile when not active
+      sidebar.style.transform = "translateX(-100%)";
+    }
+  });
+  
+  // Add test API button (kept from original code)
+  const formCard = document.querySelector('.form-card');
+  const testButton = document.createElement('button');
+  testButton.textContent = 'Test API Connection';
+  testButton.classList.add('cta-button');
+  testButton.style.marginTop = '10px';
+  testButton.style.backgroundColor = '#4CAF50';
+  formCard.appendChild(testButton);
+
+  // Add event listener for test button
+  testButton.addEventListener('click', async () => {
+    resultContainer.classList.remove("hidden");
+    resultContainer.innerHTML = "<p>Testing API connection...</p>";
+    
+    try {
+      const response = await fetch('/api/test', {
+        method: 'GET'
+      });
+      
+      console.log('Test API response status:', response.status);
+      
+      if (!response.ok) {
+        const errText = await response.text();
+        throw new Error(`HTTP Error: ${response.status} - ${errText}`);
+      }
+      
+      const data = await response.json();
+      resultContainer.innerHTML = `
+        <h2>API Test Results</h2>
+        <p>Status: ${data.status}</p>
+        <p>Message: ${data.message}</p>
+        <p>This means the API is reachable. If the main function isn't working,
+        the issue is likely in the analyze function.</p>
+      `;
+    } catch (error) {
+      console.error('Test API error:', error);
+      resultContainer.innerHTML = `
+        <p style="color:red;">API Test Failed: ${error.message}</p>
+        <p>This suggests your API endpoints aren't being properly deployed or configured.</p>
+      `;
     }
   });
 });
