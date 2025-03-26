@@ -8,12 +8,26 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
   <div class="container">
-    <!-- Sidebar -->
-    <div class="sidebar">
+    <!-- Mobile Header Bar -->
+    <div class="mobile-header">
       <h2 class="logo">Munger AI</h2>
+      <button class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h2 class="logo">Munger AI</h2>
+        <button class="close-menu" id="closeMenu">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
       <ul>
         <li class="active">Decision Tool</li>
         <li>My Profile</li>
@@ -40,7 +54,7 @@
         <div class="image-section">
           <p>Image of the Item</p>
           <div class="image-buttons">
-            <button id="takePhotoBtn" disabled>Take Photo</button>
+            <button id="takePhotoBtn">Take Photo</button>
             <label for="imageUpload" class="upload-btn">Upload Image</label>
             <input
               type="file"
@@ -50,6 +64,15 @@
             />
           </div>
           <div id="imagePreview" class="image-preview"></div>
+          
+          <!-- Hidden video element for camera capture -->
+          <div id="cameraContainer" class="camera-container hidden">
+            <video id="cameraStream" autoplay playsinline></video>
+            <div class="camera-controls">
+              <button id="captureBtn"><i class="fas fa-camera"></i> Capture</button>
+              <button id="cancelCameraBtn"><i class="fas fa-times"></i> Cancel</button>
+            </div>
+          </div>
         </div>
 
         <button class="cta-button" id="analyzeBtn">SHOULD I BUY IT?</button>
@@ -64,6 +87,9 @@
       </div>
     </div>
   </div>
+
+  <!-- Overlay for mobile sidebar -->
+  <div class="overlay" id="overlay"></div>
 
   <script src="script.js"></script>
 </body>
