@@ -26,6 +26,7 @@ body {
   --secondary-hover: #9333EA;    /* Purple 600 */
   --danger-color: #EF4444;       /* Red 500 */
   --success-color: #10B981;      /* Green 500 */
+  --neutral-color: #F59E0B;      /* Amber 500 */
   --text-dark: #1e293b;
   --text-medium: #334155;
   --text-light: #64748b;
@@ -163,7 +164,7 @@ body {
 }
 
 .main-content h1 {
-  font-size: 2.5rem;
+  font-size: 2.25rem;
   margin-bottom: 24px;
   font-weight: 800;
   color: var(--text-dark);
@@ -190,7 +191,9 @@ body {
 }
 
 .form-card input[type="text"],
-.form-card input[type="number"] {
+.form-card input[type="number"],
+.form-card select,
+.form-card textarea {
   display: block;
   width: 100%;
   padding: 12px;
@@ -203,10 +206,66 @@ body {
 }
 
 .form-card input[type="text"]:focus,
-.form-card input[type="number"]:focus {
+.form-card input[type="number"]:focus,
+.form-card select:focus,
+.form-card textarea:focus {
   outline: none;
   border-color: var(--primary-color);
   box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+/* CHECKBOX CONTAINER */
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.checkbox-container input[type="checkbox"] {
+  margin-right: 10px;
+  transform: scale(1.2);
+}
+
+.checkbox-container label {
+  margin: 0;
+  cursor: pointer;
+}
+
+/* ADVANCED OPTIONS TOGGLE */
+.toggle-button {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 20px 0;
+  padding: 0;
+  font-size: 16px;
+}
+
+.toggle-button i {
+  transition: transform 0.3s ease;
+}
+
+.toggle-button:hover {
+  color: var(--primary-hover);
+}
+
+.toggle-button:focus {
+  outline: none;
+}
+
+/* Advanced options section */
+#advancedOptions {
+  padding: 16px;
+  background-color: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
 }
 
 .image-section {
@@ -376,6 +435,14 @@ body {
   font-weight: 700;
 }
 
+.results h3 {
+  color: var(--text-dark);
+  margin-top: 24px;
+  margin-bottom: 12px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
 .results p {
   margin-bottom: 16px;
   font-size: 16px;
@@ -412,7 +479,39 @@ body {
   to { transform: rotate(360deg); }
 }
 
+/* PDS SCORE */
+.pds-score-container {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.pds-score {
+  display: inline-block;
+  font-size: 24px;
+  font-weight: 700;
+  padding: 12px 24px;
+  border-radius: 50px;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.pds-score.buy {
+  background-color: var(--success-color);
+}
+
+.pds-score.dont-buy {
+  background-color: var(--danger-color);
+}
+
+.pds-score.neutral {
+  background-color: var(--neutral-color);
+}
+
 /* RECOMMENDATION STYLES */
+.recommendation-container {
+  margin: 20px 0;
+}
+
 .recommendation {
   font-weight: 700;
   font-size: 18px;
@@ -430,6 +529,44 @@ body {
 .recommendation.dont-buy {
   background-color: var(--danger-color);
   color: #ffffff;
+}
+
+.recommendation.neutral {
+  background-color: var(--neutral-color);
+  color: #ffffff;
+}
+
+/* ANALYSIS DETAILS */
+.analysis-details {
+  margin-top: 24px;
+  border-top: 1px solid var(--border-color);
+  padding-top: 16px;
+}
+
+.factor-list p {
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  background-color: #f8fafc;
+  border-radius: 6px;
+  border-left: 3px solid var(--primary-color);
+}
+
+.insights ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.insights li {
+  padding: 8px 0;
+  margin-bottom: 8px;
+  position: relative;
+  padding-left: 24px;
+}
+
+.insights li:before {
+  content: "💡";
+  position: absolute;
+  left: 0;
 }
 
 /* RESPONSIVE */
@@ -473,5 +610,14 @@ body {
   }
   .image-buttons {
     flex-direction: column;
+  }
+  
+  .main-content h1 {
+    font-size: 1.75rem;
+  }
+  
+  .pds-score {
+    font-size: 20px;
+    padding: 10px 20px;
   }
 }
