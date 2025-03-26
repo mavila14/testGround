@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <p>Status: ${data.status}</p>
         <p>Message: ${data.message}</p>
         <p>This means the API is reachable. If the main function isn't working,
-        the issue is likely in the analyze.py file.</p>
+        the issue is likely in the analyze function.</p>
       `;
     } catch (error) {
       console.error('Test API error:', error);
