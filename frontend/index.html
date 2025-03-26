@@ -5,29 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Munger AI - Make smart purchase decisions in seconds with our AI advisor">
   <title>Munger AI | Smart Purchase Decisions</title>
+  <!-- Styles -->
   <link rel="stylesheet" href="style.css" />
+  <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    rel="stylesheet"
+  >
 </head>
 <body>
   <div class="container">
-    <!-- Mobile Header Bar -->
-    <div class="mobile-header">
-      <h2 class="logo">Munger AI</h2>
-      <button type="button" class="menu-toggle" id="menuToggle" aria-label="Open menu">
-        <i class="fas fa-bars"></i>
-      </button>
-    </div>
 
-    <!-- Sidebar -->
-    <div class="sidebar" id="sidebar">
+    <!-- Sidebar (always visible; no mobile hamburger menu) -->
+    <div class="sidebar">
       <div class="sidebar-header">
         <h2 class="logo">Munger AI</h2>
-        <button type="button" class="close-menu" id="closeMenu" aria-label="Close menu">
-          <i class="fas fa-times"></i>
-        </button>
       </div>
       <ul>
         <li class="active">Decision Tool</li>
@@ -47,10 +45,20 @@
       <h1>Should you buy it? Our AI decides in seconds.</h1>
       <div class="form-card">
         <label for="itemName">What are you buying?</label>
-        <input type="text" id="itemName" placeholder="Enter item name (e.g. Laptop, Camera)" />
+        <input
+          type="text"
+          id="itemName"
+          placeholder="Enter item name (e.g. Laptop, Camera)"
+        />
 
         <label for="itemCost">Your Budget ($)</label>
-        <input type="number" id="itemCost" placeholder="Enter your budget" min="0" step="0.01" />
+        <input
+          type="number"
+          id="itemCost"
+          placeholder="Enter your budget"
+          min="0"
+          step="0.01"
+        />
 
         <div class="image-section">
           <p>Image of the Item</p>
@@ -85,7 +93,13 @@
           </div>
         </div>
 
-        <button type="button" class="cta-button btn btn-primary" id="analyzeBtn">SHOULD I BUY IT?</button>
+        <button
+          type="button"
+          class="cta-button btn btn-primary"
+          id="analyzeBtn"
+        >
+          SHOULD I BUY IT?
+        </button>
       </div>
 
       <div id="resultContainer" class="results hidden">
@@ -96,11 +110,10 @@
         <div id="resultContent"></div>
       </div>
     </div>
+
   </div>
 
-  <!-- Overlay for mobile sidebar -->
-  <div class="overlay" id="overlay"></div>
-
+  <!-- Script -->
   <script src="script.js"></script>
 </body>
 </html>
