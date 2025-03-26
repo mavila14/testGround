@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
     resultContainer.innerHTML = "<p>Analyzing...</p>";
 
     try {
+      // Update the API endpoint to specifically match the route in function.json
       const response = await fetch("/api/analyze", {
         method: "POST",
         headers: {
@@ -37,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         body: JSON.stringify({
           itemName,
-          itemCost,
+          itemCost: parseFloat(itemCost),
           imageBase64: base64Image
         })
       });
