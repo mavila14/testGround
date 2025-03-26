@@ -1,8 +1,17 @@
 {
   "routes": [
     {
+      "route": "/api/*",
+      "serve": "/api/analyze",
+      "methods": ["POST"]
+    },
+    {
       "route": "/*",
       "serve": "/index.html"
     }
-  ]
+  ],
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/images/*.{png,jpg,gif}", "/css/*"]
+  }
 }
