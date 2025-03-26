@@ -183,49 +183,5 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Add a test button for API connectivity (for debugging)
-  const formCard = document.querySelector('.form-card');
-  if (formCard && !document.getElementById('testApiButton')) {
-    const testButton = document.createElement('button');
-    testButton.id = 'testApiButton';
-    testButton.textContent = 'Test API Connection';
-    testButton.classList.add('btn', 'btn-secondary');
-    testButton.style.marginTop = '10px';
-    testButton.style.backgroundColor = '#4CAF50';
-    formCard.appendChild(testButton);
-
-    // Add event listener for test button
-    testButton.addEventListener('click', async () => {
-      resultContainer.classList.remove("hidden");
-      resultContent.innerHTML = "<p>Testing API connection...</p>";
-      
-      try {
-        const response = await fetch('/api/test', {
-          method: 'GET'
-        });
-        
-        console.log('Test API response status:', response.status);
-        
-        if (!response.ok) {
-          const errText = await response.text();
-          throw new Error(`HTTP Error: ${response.status} - ${errText}`);
-        }
-        
-        const data = await response.json();
-        resultContent.innerHTML = `
-          <h2>API Test Results</h2>
-          <p>Status: ${data.status}</p>
-          <p>Message: ${data.message}</p>
-          <p>This means the API is reachable. If the main function isn't working,
-          the issue is likely in the analyze function.</p>
-        `;
-      } catch (error) {
-        console.error('Test API error:', error);
-        resultContent.innerHTML = `
-          <p style="color:red;">API Test Failed: ${error.message}</p>
-          <p>This suggests your API endpoints aren't being properly deployed or configured.</p>
-        `;
-      }
-    });
-  }
+  // No test button needed
 });
