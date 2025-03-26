@@ -28,10 +28,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     resultContainer.innerHTML = "<p>Analyzing...</p>";
+    
+    // Show what URL we're trying to access (for debugging)
+    console.log("Attempting to fetch from: /api/analyze");
 
     try {
-      // Update the API endpoint to specifically match the route in function.json
-      const response = await fetch("/api/analyze", {
+      // Try direct path first
+      let apiUrl = "/api/analyze";
+      console.log(`Trying API endpoint: ${apiUrl}`);
+      
+      const response = await fetch(apiUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -43,8 +49,11 @@ document.addEventListener("DOMContentLoaded", () => {
         })
       });
 
+      console.log(`Response status: ${response.status}`);
+      
       if (!response.ok) {
         const errText = await response.text();
+        console.error(`Error details: ${errText}`);
         throw new Error(`HTTP Error: ${response.status} - ${errText}`);
       }
 
@@ -59,8 +68,18 @@ document.addEventListener("DOMContentLoaded", () => {
         <p>${data.explanation}</p>
       `;
     } catch (error) {
-      console.error(error);
-      resultContainer.innerHTML = `<p style="color:red;">Error: ${error.message}</p>`;
+      console.error("Fetch error:", error);
+      
+      // Try with a fallback URL for testing
+      resultContainer.innerHTML = `
+        <p style="color:red;">Error: ${error.message}</p>
+        <p>Debugging info:</p>
+        <ul>
+          <li>API URL: /api/analyze</li>
+          <li>Browser URL: ${window.location.href}</li>
+          <li>Full error: ${error.toString()}</li>
+        </ul>
+      `;
     }
   });
 });
