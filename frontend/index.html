@@ -36,7 +36,7 @@
         <h3>Login</h3>
         <input type="text" placeholder="Username" />
         <input type="password" placeholder="Password" />
-        <button>Login</button>
+        <button class="btn">Login</button>
         <p class="signup">Sign Up</p>
       </div>
     </div>
@@ -54,8 +54,8 @@
         <div class="image-section">
           <p>Image of the Item</p>
           <div class="image-buttons">
-            <button id="takePhotoBtn">Take Photo</button>
-            <label for="imageUpload" class="upload-btn">Upload Image</label>
+            <button id="takePhotoBtn" class="btn btn-secondary">Take Photo</button>
+            <label for="imageUpload" class="upload-btn btn btn-secondary">Upload Image</label>
             <input
               type="file"
               id="imageUpload"
@@ -69,13 +69,13 @@
           <div id="cameraContainer" class="camera-container hidden">
             <video id="cameraStream" autoplay playsinline></video>
             <div class="camera-controls">
-              <button id="captureBtn"><i class="fas fa-camera"></i> Capture</button>
-              <button id="cancelCameraBtn"><i class="fas fa-times"></i> Cancel</button>
+              <button id="captureBtn" class="btn btn-secondary"><i class="fas fa-camera"></i> Capture</button>
+              <button id="cancelCameraBtn" class="btn"><i class="fas fa-times"></i> Cancel</button>
             </div>
           </div>
         </div>
 
-        <button class="cta-button" id="analyzeBtn">SHOULD I BUY IT?</button>
+        <button class="cta-button btn btn-primary" id="analyzeBtn">SHOULD I BUY IT?</button>
       </div>
 
       <div id="resultContainer" class="results hidden">
