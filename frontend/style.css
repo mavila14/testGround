@@ -1,19 +1,31 @@
-body {
+/* GENERAL RESET & BODY STYLES */
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
   font-family: 'Inter', sans-serif;
-  background-color: #f8fafc;
   color: #334155;
+  background: linear-gradient(
+    to bottom right,
+    #f3f4f6,
+    #ffffff 50%,
+    #f8fafc 100%
+  );
   line-height: 1.5;
   overflow-x: hidden;
 }
 
+/* GLOBAL VARIABLES */
 :root {
-  --primary-color: #6366F1;
-  --primary-hover: #4F46E5;
-  --secondary-color: #A855F7;
-  --secondary-hover: #9333EA;
-  --danger-color: #EF4444;
-  --success-color: #10B981;
+  --primary-color: #6366F1;      /* Indigo 500 */
+  --primary-hover: #4F46E5;      /* Indigo 600 */
+  --secondary-color: #A855F7;    /* Purple 500 */
+  --secondary-hover: #9333EA;    /* Purple 600 */
+  --danger-color: #EF4444;       /* Red 500 */
+  --success-color: #10B981;      /* Green 500 */
   --text-dark: #1e293b;
   --text-medium: #334155;
   --text-light: #64748b;
@@ -22,88 +34,46 @@ body {
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
+/* LAYOUT CONTAINER */
 .container {
   display: flex;
   min-height: 100vh;
 }
 
-/* Mobile Header */
-.mobile-header {
-  display: none;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px;
-  background-color: #ffffff;
-  box-shadow: var(--shadow-sm);
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-}
-
-.menu-toggle, .close-menu {
-  background: none;
-  border: none;
-  color: var(--primary-color);
-  font-size: 24px;
-  cursor: pointer;
-  padding: 8px;
-}
-
-.close-menu {
-  display: none;
-}
-
-.sidebar-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-/* Overlay for mobile sidebar */
-.overlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 150;
-}
-
-/* Sidebar */
+/* SIDEBAR */
 .sidebar {
   background-color: #ffffff;
   width: 250px;
   padding: 24px;
   border-right: 1px solid var(--border-color);
+  box-shadow: var(--shadow-md);
   display: flex;
   flex-direction: column;
-  box-shadow: var(--shadow-md);
-  z-index: 200;
-  transition: transform 0.3s ease;
+}
+
+.sidebar-header {
+  margin-bottom: 20px;
 }
 
 .logo {
   color: var(--primary-color);
   margin-top: 0;
+  margin-bottom: 0;
   font-size: 24px;
+  font-weight: 700;
 }
 
 .sidebar ul {
   list-style: none;
-  padding: 0;
   margin: 24px 0;
+  padding: 0;
 }
 
 .sidebar ul li {
   padding: 12px 0;
   color: var(--text-light);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: color 0.2s ease;
   font-weight: 500;
 }
 
@@ -127,6 +97,7 @@ body {
   background-color: var(--primary-color);
 }
 
+/* LOGIN SECTION IN SIDEBAR */
 .login-section {
   margin-top: auto;
   border-top: 1px solid var(--border-color);
@@ -180,22 +151,26 @@ body {
   text-align: center;
 }
 
-/* Main Content */
+/* MAIN CONTENT */
 .main-content {
   flex: 1;
   padding: 40px;
   max-width: 1000px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .main-content h1 {
-  font-size: 28px;
-  color: var(--text-dark);
-  margin-top: 0;
+  font-size: 2.5rem;
   margin-bottom: 24px;
-  font-weight: 700;
+  font-weight: 800;
+  color: var(--text-dark);
+  line-height: 1.2;
 }
 
+/* FORM CARD */
 .form-card {
   background-color: #ffffff;
   padding: 32px;
@@ -203,6 +178,7 @@ body {
   box-shadow: var(--shadow-sm);
   margin-bottom: 24px;
   max-width: 600px;
+  width: 100%;
 }
 
 .form-card label {
@@ -222,8 +198,8 @@ body {
   border: 1px solid #cbd5e0;
   border-radius: 6px;
   transition: border-color 0.2s ease;
-  box-sizing: border-box;
   font-size: 16px;
+  box-sizing: border-box;
 }
 
 .form-card input[type="text"]:focus,
@@ -248,7 +224,7 @@ body {
   gap: 12px;
 }
 
-/* Standard button styles for consistency */
+/* BUTTONS */
 .btn {
   display: inline-block;
   text-align: center;
@@ -260,7 +236,6 @@ body {
   cursor: pointer;
   font-weight: 500;
   transition: all 0.2s ease;
-  width: 100%;
   font-size: 16px;
 }
 
@@ -289,28 +264,13 @@ body {
   background-color: var(--primary-hover);
 }
 
-#takePhotoBtn, .upload-btn {
-  background-color: var(--primary-color);
-  color: #ffffff;
-  padding: 12px 16px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.2s ease;
-  text-align: center;
+.upload-btn, #takePhotoBtn {
   width: 100%;
-  font-size: 16px;
+  text-align: center;
+  box-sizing: border-box;
 }
 
-.upload-btn {
-  display: inline-block;
-}
-
-#takePhotoBtn:hover, .upload-btn:hover {
-  background-color: var(--primary-hover);
-  transform: translateY(-1px);
-}
-
+/* CTA Button */
 .cta-button {
   background-color: var(--secondary-color);
   color: #ffffff;
@@ -337,7 +297,22 @@ body {
   transform: translateY(1px);
 }
 
-/* Camera container */
+/* IMAGE PREVIEW */
+.image-preview {
+  margin-top: 16px;
+  max-width: 100%;
+  min-height: 30px;
+}
+
+.image-preview img {
+  max-width: 100%;
+  max-height: 300px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+/* CAMERA CONTAINER */
 .camera-container {
   margin-top: 16px;
   width: 100%;
@@ -362,7 +337,7 @@ body {
 
 .camera-controls button {
   background-color: var(--primary-color);
-  color: white;
+  color: #ffffff;
   border: none;
   padding: 8px 16px;
   border-radius: 6px;
@@ -382,19 +357,21 @@ body {
   background-color: #dc2626;
 }
 
-/* Results container */
+/* RESULTS */
 .results {
   background-color: #ffffff;
   padding: 32px;
   border-radius: 12px;
   box-shadow: var(--shadow-sm);
   max-width: 600px;
+  width: 100%;
   transition: all 0.3s ease;
 }
 
 .results h2 {
   color: var(--text-dark);
   margin-top: 0;
+  margin-bottom: 16px;
   font-size: 24px;
   font-weight: 700;
 }
@@ -414,21 +391,7 @@ body {
   display: none !important;
 }
 
-.image-preview {
-  margin-top: 16px;
-  max-width: 100%;
-  min-height: 30px;
-}
-
-.image-preview img {
-  max-width: 100%;
-  max-height: 300px;
-  border-radius: 8px;
-  border: 1px solid var(--border-color);
-  box-shadow: var(--shadow-sm);
-}
-
-/* Loading indicator */
+/* LOADING INDICATOR */
 .loading-indicator {
   text-align: center;
   padding: 24px;
@@ -449,7 +412,7 @@ body {
   to { transform: rotate(360deg); }
 }
 
-/* Recommendation styles */
+/* RECOMMENDATION STYLES */
 .recommendation {
   font-weight: 700;
   font-size: 18px;
@@ -461,84 +424,54 @@ body {
 
 .recommendation.buy {
   background-color: var(--success-color);
-  color: white;
+  color: #ffffff;
 }
 
 .recommendation.dont-buy {
   background-color: var(--danger-color);
-  color: white;
+  color: #ffffff;
 }
 
-/* Mobile responsive styles */
+/* RESPONSIVE */
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
   }
-  
-  .mobile-header {
-    display: flex;
-    height: 60px;
-    box-sizing: border-box;
-  }
-  
   .sidebar {
-    position: fixed;
-    left: -300px;
-    top: 0;
-    bottom: 0;
-    width: 280px;
-    padding-top: 20px;
-    height: 100%;
-    overflow-y: auto;
-    transform: translateX(-100%);
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
-  
-  .sidebar.show {
-    transform: translateX(0);
-    left: 0;
+  .sidebar-header,
+  .sidebar ul,
+  .login-section {
+    margin: 0;
+    padding: 0;
   }
-  
-  .sidebar-header {
-    display: flex;
+  .sidebar-header h2 {
+    margin-bottom: 0;
   }
-  
-  .close-menu {
-    display: block;
+  .sidebar ul {
+    display: none; /* hide nav items on narrow screens */
   }
-  
+  .login-section {
+    display: none; /* hide login on narrow screens (optional) */
+  }
   .main-content {
     padding: 16px;
-    margin-top: 60px; /* Add space for fixed header */
+    margin-top: 16px;
     width: 100%;
-    box-sizing: border-box;
   }
-  
-  .form-card, .results {
+  .form-card,
+  .results {
     padding: 20px;
     margin-left: auto;
     margin-right: auto;
   }
-  
-  .overlay.show {
-    display: block;
-  }
-  
   .image-buttons {
     flex-direction: column;
-  }
-  
-  .upload-btn, #takePhotoBtn {
-    width: 100%;
-    text-align: center;
-    box-sizing: border-box;
-  }
-  
-  /* Make all buttons consistent on mobile */
-  .btn, #takePhotoBtn, .upload-btn, .cta-button {
-    width: 100%;
-    padding: 14px;
-    font-size: 16px;
-    margin-bottom: 10px;
-    box-sizing: border-box;
   }
 }
