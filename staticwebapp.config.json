@@ -2,16 +2,18 @@
   "routes": [
     {
       "route": "/api/*",
-      "serve": "/api/analyze",
-      "methods": ["POST"]
+      "allowedRoles": ["anonymous"]
     },
     {
       "route": "/*",
-      "serve": "/index.html"
+      "serve": "/index.html",
+      "statusCode": 200
     }
   ],
   "navigationFallback": {
-    "rewrite": "/index.html",
-    "exclude": ["/images/*.{png,jpg,gif}", "/css/*"]
+    "rewrite": "/index.html"
+  },
+  "platform": {
+    "apiRuntime": "python:3.9"
   }
 }
