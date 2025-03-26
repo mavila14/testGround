@@ -4,11 +4,59 @@ body {
   background-color: #f8fafc;
   color: #334155;
   line-height: 1.5;
+  overflow-x: hidden;
 }
 
 .container {
   display: flex;
   min-height: 100vh;
+}
+
+/* Mobile Header */
+.mobile-header {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.menu-toggle, .close-menu {
+  background: none;
+  border: none;
+  color: #5a67d8;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.close-menu {
+  display: none;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Overlay for mobile sidebar */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 150;
 }
 
 /* Sidebar */
@@ -20,6 +68,7 @@ body {
   display: flex;
   flex-direction: column;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  z-index: 200;
 }
 
 .logo {
@@ -187,8 +236,12 @@ body {
   padding: 10px 16px;
   border-radius: 6px;
   border: none;
-  cursor: not-allowed;
-  opacity: 0.7;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+#takePhotoBtn:hover {
+  background-color: #4c51bf;
 }
 
 .upload-btn {
@@ -223,6 +276,51 @@ body {
   background-color: #9333EA;
 }
 
+/* Camera container */
+.camera-container {
+  margin-top: 16px;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #000;
+}
+
+.camera-container video {
+  width: 100%;
+  max-height: 400px;
+  display: block;
+}
+
+.camera-controls {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  padding: 12px;
+  background-color: #1e293b;
+}
+
+.camera-controls button {
+  background-color: #5a67d8;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.camera-controls button:hover {
+  background-color: #4c51bf;
+}
+
+#cancelCameraBtn {
+  background-color: #ef4444;
+}
+
+#cancelCameraBtn:hover {
+  background-color: #dc2626;
+}
+
 /* Results container */
 .results {
   background-color: #ffffff;
@@ -250,7 +348,7 @@ body {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .image-preview {
@@ -307,21 +405,58 @@ body {
   color: white;
 }
 
+/* Mobile responsive styles */
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
   }
   
+  .mobile-header {
+    display: flex;
+  }
+  
   .sidebar {
-    width: 100%;
-    box-sizing: border-box;
+    position: fixed;
+    left: -280px;
+    top: 0;
+    bottom: 0;
+    transition: transform 0.3s ease;
+    width: 280px;
+    padding-top: 20px;
+    overflow-y: auto;
+  }
+  
+  .sidebar.show {
+    transform: translateX(280px);
+  }
+  
+  .sidebar-header {
+    display: flex;
+  }
+  
+  .close-menu {
+    display: block;
   }
   
   .main-content {
     padding: 20px;
+    margin-top: 70px; /* Add space for fixed header */
   }
   
   .form-card, .results {
     padding: 20px;
+  }
+  
+  .overlay.show {
+    display: block;
+  }
+  
+  .image-buttons {
+    flex-direction: column;
+  }
+  
+  .upload-btn, #takePhotoBtn {
+    width: 100%;
+    text-align: center;
   }
 }
