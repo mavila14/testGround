@@ -11,33 +11,100 @@ document.addEventListener("DOMContentLoaded", () => {
   const cameraStream = document.getElementById("cameraStream");
   const captureBtn = document.getElementById("captureBtn");
   const cancelCameraBtn = document.getElementById("cancelCameraBtn");
+  const itemNameInput = document.getElementById("itemName");
+  const itemCostInput = document.getElementById("itemCost");
 
   // Camera stream variable
   let stream = null;
   let capturedImage = null;
+  
+  // Add focus animation to input fields
+  const animateLabel = (input, labelSelector) => {
+    input.addEventListener("focus", () => {
+      const label = document.querySelector(labelSelector);
+      if (label) {
+        label.style.color = "#4f46e5";
+        label.style.transform = "translateY(-3px)";
+      }
+    });
+    
+    input.addEventListener("blur", () => {
+      const label = document.querySelector(labelSelector);
+      if (label) {
+        label.style.color = "";
+        label.style.transform = "";
+      }
+    });
+  };
+  
+  // Apply animations to form fields
+  animateLabel(itemNameInput, 'label[for="itemName"]');
+  animateLabel(itemCostInput, 'label[for="itemCost"]');
+  
+  // Add button press effect
+  analyzeBtn.addEventListener("mousedown", () => {
+    analyzeBtn.style.transform = "scale(0.98)";
+  });
+  
+  analyzeBtn.addEventListener("mouseup", () => {
+    analyzeBtn.style.transform = "";
+  });
+  
+  // Add input validation visual feedback
+  itemNameInput.addEventListener("input", () => {
+    validateInputs();
+  });
+  
+  itemCostInput.addEventListener("input", () => {
+    validateInputs();
+  });
+  
+  function validateInputs() {
+    const nameValue = itemNameInput.value.trim();
+    const costValue = itemCostInput.value.trim();
+    
+    if (nameValue && costValue && parseFloat(costValue) > 0) {
+      analyzeBtn.classList.add("ready");
+    } else {
+      analyzeBtn.classList.remove("ready");
+    }
+  }
 
   // Camera functionality
   takePhotoBtn.addEventListener("click", async () => {
     try {
+      // Add button animation
+      takePhotoBtn.classList.add("active");
+      
       // Request camera access
       stream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode: "environment" },
         audio: false
       });
 
-      // Display the camera preview
+      // Display the camera preview with animation
       cameraStream.srcObject = stream;
       cameraContainer.classList.remove("hidden");
+      cameraContainer.style.opacity = "0";
+      setTimeout(() => {
+        cameraContainer.style.opacity = "1";
+      }, 10);
+      
+      takePhotoBtn.classList.remove("active");
       takePhotoBtn.classList.add("hidden");
 
     } catch (err) {
       console.error("Error accessing camera:", err);
+      takePhotoBtn.classList.remove("active");
       alert("Could not access camera. Please check your permissions or upload an image.");
     }
   });
 
   // Capture photo from camera
   captureBtn.addEventListener("click", () => {
+    // Add button animation
+    captureBtn.classList.add("active");
+    
     const canvas = document.createElement("canvas");
     canvas.width = cameraStream.videoWidth;
     canvas.height = cameraStream.videoHeight;
@@ -49,11 +116,15 @@ document.addEventListener("DOMContentLoaded", () => {
     // Get image data as base64
     capturedImage = canvas.toDataURL("image/jpeg");
 
-    // Show preview of captured image
-    imagePreview.innerHTML = `<img src="${capturedImage}" alt="Captured image">`;
+    // Show preview of captured image with fade-in effect
+    imagePreview.innerHTML = `<img src="${capturedImage}" alt="Captured image" style="opacity: 0">`;
+    setTimeout(() => {
+      imagePreview.querySelector("img").style.opacity = "1";
+    }, 10);
 
     // Stop camera and hide camera container
     stopCamera();
+    captureBtn.classList.remove("active");
   });
 
   // Cancel camera
@@ -63,8 +134,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (stream) {
       stream.getTracks().forEach((track) => track.stop());
     }
-    cameraContainer.classList.add("hidden");
-    takePhotoBtn.classList.remove("hidden");
+    
+    // Add animation when closing camera
+    cameraContainer.style.opacity = "0";
+    setTimeout(() => {
+      cameraContainer.classList.add("hidden");
+      takePhotoBtn.classList.remove("hidden");
+    }, 300);
   }
 
   // Convert uploaded file to base64
@@ -77,33 +153,77 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Handle image upload preview
+  // Handle image upload preview with animation
   imageUpload.addEventListener("change", (event) => {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = (e) => {
         capturedImage = null; // Reset if previously captured
-        imagePreview.innerHTML = `<img src="${e.target.result}" alt="Item preview">`;
+        
+        // Create image with fade-in effect
+        imagePreview.innerHTML = `<img src="${e.target.result}" alt="Item preview" style="opacity: 0">`;
+        setTimeout(() => {
+          imagePreview.querySelector("img").style.opacity = "1";
+        }, 10);
       };
       reader.readAsDataURL(file);
     }
   });
 
-  // Analyze button click
+  // Loading messages for a more engaging experience
+  const loadingMessages = [
+    "Consulting Charlie Munger's wisdom...",
+    "Analyzing purchase value...",
+    "Calculating opportunity cost...",
+    "Applying mental models...",
+    "Making investment decision..."
+  ];
+  
+  let loadingMessageIndex = 0;
+  let loadingInterval;
+  
+  function startLoadingAnimation() {
+    const loadingText = loadingIndicator.querySelector("p");
+    loadingText.textContent = loadingMessages[0];
+    
+    loadingInterval = setInterval(() => {
+      loadingMessageIndex = (loadingMessageIndex + 1) % loadingMessages.length;
+      loadingText.style.opacity = "0";
+      
+      setTimeout(() => {
+        loadingText.textContent = loadingMessages[loadingMessageIndex];
+        loadingText.style.opacity = "1";
+      }, 300);
+    }, 2000);
+  }
+  
+  function stopLoadingAnimation() {
+    clearInterval(loadingInterval);
+  }
+
+  // Analyze button click with enhanced animations
   analyzeBtn.addEventListener("click", async () => {
-    const itemName = document.getElementById("itemName").value.trim();
-    const itemCost = document.getElementById("itemCost").value.trim();
+    const itemName = itemNameInput.value.trim();
+    const itemCost = itemCostInput.value.trim();
 
     if (!itemName || !itemCost) {
-      alert("Please provide both the item name and cost.");
+      // Shake animation for invalid input
+      analyzeBtn.classList.add("shake");
+      setTimeout(() => {
+        analyzeBtn.classList.remove("shake");
+        alert("Please provide both the item name and cost.");
+      }, 500);
       return;
     }
 
-    // Show loading state
+    // Show loading state with animation
     resultContainer.classList.remove("hidden");
     loadingIndicator.classList.remove("hidden");
     resultContent.innerHTML = "";
+    
+    // Start the loading message rotation
+    startLoadingAnimation();
 
     let base64Image = null;
 
@@ -139,14 +259,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const data = await response.json();
 
+      // Stop the loading animation
+      stopLoadingAnimation();
+
       // "Buy" or "Don't Buy" logic for styling
       const recommendationClass = data.recommendation.toLowerCase().includes("don't") ? 
         "dont-buy" : "buy";
 
+      // Random Munger quotes for additional wisdom
+      const mungerQuotes = [
+        "Take a simple idea and take it seriously.",
+        "The big money is not in the buying and selling, but in the waiting.",
+        "All intelligent investing is value investing.",
+        "Knowing what you don't know is more useful than being brilliant.",
+        "Spend each day trying to be a little wiser than you were when you woke up."
+      ];
+      
+      const randomQuoteIndex = Math.floor(Math.random() * mungerQuotes.length);
+
       let resultsHTML = `
         <h2>Purchase Analysis</h2>
         <p><strong>Item:</strong> ${data.name}</p>
-        <p><strong>Cost:</strong> $${parseFloat(data.cost).toFixed(2)}</p>
+        <p><strong>Cost:</strong> ${parseFloat(data.cost).toFixed(2)}</p>
       `;
 
       // Add interesting facts if available
@@ -163,25 +297,36 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>
           <p>${data.explanation}</p>
         </div>
+        
+        <div class="munger-quote">
+          "${mungerQuotes[randomQuoteIndex]}"
+          <div style="text-align: right; margin-top: 8px; font-weight: 500;">— Charlie Munger</div>
+        </div>
       `;
 
+      // Hide loading indicator and show results
+      loadingIndicator.classList.add("hidden");
       resultContent.innerHTML = resultsHTML;
 
       // Smooth scroll to results
-      resultContainer.scrollIntoView({ behavior: 'smooth' });
+      resultContainer.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
 
     } catch (error) {
       console.error("Error:", error);
+      
+      // Stop the loading animation
+      stopLoadingAnimation();
+      
+      // Show error with animation
+      loadingIndicator.classList.add("hidden");
       resultContent.innerHTML = `
         <h2>Oops! Something went wrong</h2>
         <p>We couldn't analyze your item at this time. Please try again later.</p>
         <p><small>Error details: ${error.message}</small></p>
       `;
-    } finally {
-      // Hide loading indicator
-      loadingIndicator.classList.add("hidden");
     }
   });
-
-  // No test button needed
 });
