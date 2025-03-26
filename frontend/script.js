@@ -1,11 +1,95 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // DOM Elements
   const imageUpload = document.getElementById("imageUpload");
+  const takePhotoBtn = document.getElementById("takePhotoBtn");
   const analyzeBtn = document.getElementById("analyzeBtn");
   const resultContainer = document.getElementById("resultContainer");
   const loadingIndicator = document.getElementById("loadingIndicator");
   const resultContent = document.getElementById("resultContent");
   const imagePreview = document.getElementById("imagePreview");
-
+  const cameraContainer = document.getElementById("cameraContainer");
+  const cameraStream = document.getElementById("cameraStream");
+  const captureBtn = document.getElementById("captureBtn");
+  const cancelCameraBtn = document.getElementById("cancelCameraBtn");
+  
+  // Mobile menu elements
+  const menuToggle = document.getElementById("menuToggle");
+  const closeMenu = document.getElementById("closeMenu");
+  const sidebar = document.getElementById("sidebar");
+  const overlay = document.getElementById("overlay");
+  
+  // Variables to store camera stream
+  let stream = null;
+  let capturedImage = null;
+  
+  // Mobile menu toggle functions
+  menuToggle.addEventListener("click", () => {
+    sidebar.classList.add("show");
+    overlay.classList.add("show");
+    document.body.style.overflow = "hidden";
+  });
+  
+  function closeMenuFunc() {
+    sidebar.classList.remove("show");
+    overlay.classList.remove("show");
+    document.body.style.overflow = "";
+  }
+  
+  closeMenu.addEventListener("click", closeMenuFunc);
+  overlay.addEventListener("click", closeMenuFunc);
+  
+  // Camera functionality
+  takePhotoBtn.addEventListener("click", async () => {
+    try {
+      // Get camera stream
+      stream = await navigator.mediaDevices.getUserMedia({ 
+        video: { facingMode: "environment" }, 
+        audio: false 
+      });
+      
+      // Show camera container
+      cameraStream.srcObject = stream;
+      cameraContainer.classList.remove("hidden");
+      takePhotoBtn.classList.add("hidden");
+      
+    } catch (err) {
+      console.error("Error accessing camera:", err);
+      alert("Could not access camera. Please make sure you have granted camera permissions or try uploading an image instead.");
+    }
+  });
+  
+  // Capture photo from camera
+  captureBtn.addEventListener("click", () => {
+    const canvas = document.createElement("canvas");
+    canvas.width = cameraStream.videoWidth;
+    canvas.height = cameraStream.videoHeight;
+    const ctx = canvas.getContext("2d");
+    
+    // Draw current video frame to canvas
+    ctx.drawImage(cameraStream, 0, 0, canvas.width, canvas.height);
+    
+    // Get image data as base64
+    capturedImage = canvas.toDataURL("image/jpeg");
+    
+    // Show preview of captured image
+    imagePreview.innerHTML = `<img src="${capturedImage}" alt="Captured image">`;
+    
+    // Close camera
+    stopCamera();
+  });
+  
+  // Cancel camera
+  cancelCameraBtn.addEventListener("click", stopCamera);
+  
+  function stopCamera() {
+    if (stream) {
+      stream.getTracks().forEach(track => track.stop());
+    }
+    cameraContainer.classList.add("hidden");
+    takePhotoBtn.classList.remove("hidden");
+  }
+  
+  // File to base64 conversion
   function fileToBase64(file) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -15,24 +99,31 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Show image preview when image is selected
+  // Show image preview when image is uploaded
   imageUpload.addEventListener("change", (event) => {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = (e) => {
+        capturedImage = null; // Clear captured image if one was taken
         imagePreview.innerHTML = `<img src="${e.target.result}" alt="Item preview">`;
       };
       reader.readAsDataURL(file);
     }
   });
 
+  // Analyze button click handler
   analyzeBtn.addEventListener("click", async () => {
     const itemName = document.getElementById("itemName").value.trim();
     const itemCost = document.getElementById("itemCost").value.trim();
 
     if (!itemName || !itemCost) {
       alert("Please fill in both 'What are you buying?' and 'Your Budget ($)'.");
+      return;
+    }
+    
+    if (!imageUpload.files[0] && !capturedImage) {
+      alert("Please upload an image or take a photo of the item.");
       return;
     }
 
@@ -42,13 +133,19 @@ document.addEventListener("DOMContentLoaded", () => {
     resultContent.innerHTML = "";
 
     let base64Image = null;
-    const file = imageUpload.files[0];
-    if (file) {
-      try {
+    
+    // Get image data - either from file upload or camera capture
+    try {
+      if (capturedImage) {
+        // Get base64 string from capturedImage
+        base64Image = capturedImage.split(",")[1];
+      } else {
+        // Get base64 from uploaded file
+        const file = imageUpload.files[0];
         base64Image = await fileToBase64(file);
-      } catch (error) {
-        console.error("Error processing image:", error);
       }
+    } catch (error) {
+      console.error("Error processing image:", error);
     }
 
     try {
