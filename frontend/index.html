@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Munger AI</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <h2 class="logo">Munger AI</h2>
+      <ul>
+        <li class="active">Decision Tool</li>
+        <li>My Profile</li>
+      </ul>
+      <div class="login-section">
+        <h3>Login</h3>
+        <input type="text" placeholder="Username" />
+        <input type="password" placeholder="Password" />
+        <button>Login</button>
+        <p class="signup">Sign Up</p>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <h1>Should you buy it? Our AI decides in seconds.</h1>
+      <div class="form-card">
+        <label for="itemName">What are you buying?</label>
+        <input type="text" id="itemName" placeholder="New Laptop" />
+
+        <label for="itemCost">Cost ($)</label>
+        <input type="number" id="itemCost" placeholder="500.00" />
+
+        <div class="image-section">
+          <p>Image of the Item</p>
+          <div>
+            <button id="takePhotoBtn" disabled>Take Photo</button>
+            <label for="imageUpload" class="upload-btn">Upload Image</label>
+            <input
+              type="file"
+              id="imageUpload"
+              accept="image/*"
+              style="display: none;"
+            />
+          </div>
+        </div>
+
+        <button class="cta-button" id="analyzeBtn">SHOULD I BUY IT?</button>
+      </div>
+
+      <div id="resultContainer" class="results"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
