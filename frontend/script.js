@@ -22,7 +22,9 @@ document.addEventListener("DOMContentLoaded", () => {
   let stream = null;
   let capturedImage = null;
   
-  // Mobile menu toggle functions
+  // Mobile menu toggle functions - ensure sidebar is completely hidden initially
+  document.body.classList.add('menu-closed');
+  
   menuToggle.addEventListener("click", () => {
     sidebar.classList.add("show");
     overlay.classList.add("show");
