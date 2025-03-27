@@ -25,6 +25,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     item_name = body.get("itemName", "")
     item_cost = float(body.get("itemCost", 0))
     image_base64 = body.get("imageBase64", None)
+    advanced_data = body.get("advancedData", None)
     
     try:
         # If image is provided, get item details from image
@@ -36,8 +37,8 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             if item_details.get("name") and item_details["name"] != "Error":
                 item_name = item_details["name"]
         
-        # Get buy/don't buy recommendation
-        recommendation = get_purchase_recommendation(item_name, item_cost)
+        # Get buy/don't buy recommendation with advanced data if available
+        recommendation = get_purchase_recommendation(item_name, item_cost, advanced_data)
         
         # Build response
         response_data = {
@@ -123,17 +124,53 @@ def analyze_image_with_gemini(item_name: str, image_base64: str) -> dict:
             "facts": f"Error analyzing image: {e}"
         }
 
-def get_purchase_recommendation(item_name: str, item_cost: float) -> dict:
+def get_purchase_recommendation(item_name: str, item_cost: float, advanced_data: dict = None) -> dict:
     """
     Generate a buy/don't buy recommendation using the Gemini API.
+    
+    This version supports advanced data analysis for better recommendations.
+    
+    Parameters:
+    - item_name: Name of the item being evaluated
+    - item_cost: Cost of the item
+    - advanced_data: Optional additional context for better evaluation
     """
+    # Build the advanced data section if available
+    advanced_context = ""
+    if advanced_data:
+        advanced_context = "Additional context:\n"
+        
+        if advanced_data.get("purpose"):
+            advanced_context += f"- Purpose of purchase: {advanced_data['purpose']}\n"
+        
+        if advanced_data.get("frequency"):
+            advanced_context += f"- Frequency of use: {advanced_data['frequency']}\n"
+        
+        if advanced_data.get("lifespan"):
+            advanced_context += f"- Expected lifespan: {advanced_data['lifespan']} years\n"
+        
+        if advanced_data.get("alternativeCost") is not None:
+            advanced_context += f"- Cost of alternative option: ${advanced_data['alternativeCost']:.2f}\n"
+        
+        if advanced_data.get("notes"):
+            advanced_context += f"- User notes: {advanced_data['notes']}\n"
+    
     prompt = f"""
     As Charlie Munger, the legendary investor and business partner of Warren Buffett, analyze the following purchase decision:
 
     Item: {item_name}
     Cost: ${item_cost:.2f}
+    {advanced_context}
 
     Provide a clear "Buy" or "Don't Buy" recommendation based on your principles of rational decision-making, opportunity cost, and long-term value.
+    
+    Consider these factors in your analysis:
+    - Whether this item is a necessity or a luxury
+    - The frequency of use and utility derived
+    - The expected lifespan of the item
+    - The opportunity cost of the money spent
+    - Whether cheaper alternatives exist that may provide similar utility
+    - The long-term impact of this purchase on financial goals
 
     Return ONLY a JSON object with this structure:
     {{
