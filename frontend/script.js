@@ -13,10 +13,32 @@ document.addEventListener("DOMContentLoaded", () => {
   const cancelCameraBtn = document.getElementById("cancelCameraBtn");
   const itemNameInput = document.getElementById("itemName");
   const itemCostInput = document.getElementById("itemCost");
+  
+  // Advanced analysis elements
+  const advancedToggle = document.getElementById("advancedToggle");
+  const advancedSection = document.getElementById("advancedSection");
+  const itemPurpose = document.getElementById("itemPurpose");
+  const itemFrequency = document.getElementById("itemFrequency");
+  const itemLifespan = document.getElementById("itemLifespan");
+  const alternativeCost = document.getElementById("alternativeCost");
+  const userNotes = document.getElementById("userNotes");
 
   // Camera stream variable
   let stream = null;
   let capturedImage = null;
+  
+  // Toggle advanced analysis section
+  advancedToggle.addEventListener("click", () => {
+    advancedToggle.classList.toggle("open");
+    advancedSection.classList.toggle("open");
+    
+    // Smooth animation for opening/closing
+    if (advancedSection.classList.contains("open")) {
+      advancedSection.style.maxHeight = advancedSection.scrollHeight + "px";
+    } else {
+      advancedSection.style.maxHeight = "0";
+    }
+  });
   
   // Add focus animation to input fields
   const animateLabel = (input, labelSelector) => {
@@ -40,6 +62,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // Apply animations to form fields
   animateLabel(itemNameInput, 'label[for="itemName"]');
   animateLabel(itemCostInput, 'label[for="itemCost"]');
+  animateLabel(itemLifespan, 'label[for="itemLifespan"]');
+  animateLabel(alternativeCost, 'label[for="alternativeCost"]');
+  animateLabel(userNotes, 'label[for="userNotes"]');
   
   // Add button press effect
   analyzeBtn.addEventListener("mousedown", () => {
@@ -201,6 +226,26 @@ document.addEventListener("DOMContentLoaded", () => {
   function stopLoadingAnimation() {
     clearInterval(loadingInterval);
   }
+  
+  // Collect advanced analysis data
+  function getAdvancedAnalysisData() {
+    // Only collect data if the advanced section is open
+    if (!advancedSection.classList.contains("open")) {
+      return null;
+    }
+    
+    const advancedData = {
+      purpose: itemPurpose.value || null,
+      frequency: itemFrequency.value || null,
+      lifespan: itemLifespan.value ? parseFloat(itemLifespan.value) : null,
+      alternativeCost: alternativeCost.value ? parseFloat(alternativeCost.value) : null,
+      notes: userNotes.value.trim() || null
+    };
+    
+    // Only return if at least one field has data
+    const hasData = Object.values(advancedData).some(value => value !== null && value !== "");
+    return hasData ? advancedData : null;
+  }
 
   // Analyze button click with enhanced animations
   analyzeBtn.addEventListener("click", async () => {
@@ -238,19 +283,30 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (error) {
       console.error("Error processing image:", error);
     }
+    
+    // Get advanced analysis data if available
+    const advancedData = getAdvancedAnalysisData();
 
     try {
+      // Prepare request data
+      const requestData = {
+        itemName,
+        itemCost: parseFloat(itemCost),
+        imageBase64: base64Image
+      };
+      
+      // Add advanced data if available
+      if (advancedData) {
+        requestData.advancedData = advancedData;
+      }
+      
       // Make request to backend API
       const response = await fetch("/api/analyze", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({
-          itemName,
-          itemCost: parseFloat(itemCost),
-          imageBase64: base64Image
-        })
+        body: JSON.stringify(requestData)
       });
 
       if (!response.ok) {
@@ -280,7 +336,7 @@ document.addEventListener("DOMContentLoaded", () => {
       let resultsHTML = `
         <h2>Purchase Analysis</h2>
         <p><strong>Item:</strong> ${data.name}</p>
-        <p><strong>Cost:</strong> ${parseFloat(data.cost).toFixed(2)}</p>
+        <p><strong>Cost:</strong> $${parseFloat(data.cost).toFixed(2)}</p>
       `;
 
       // Add interesting facts if available
