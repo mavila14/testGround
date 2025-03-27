@@ -315,11 +315,6 @@ body {
   margin-bottom: 12px;
 }
 
-.image-buttons {
-  display: flex;
-  gap: 12px;
-}
-
 /* ADVANCED ANALYSIS SECTION */
 .advanced-toggle {
   display: flex;
