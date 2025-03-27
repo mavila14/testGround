@@ -37,7 +37,36 @@ body {
 /* LAYOUT CONTAINER */
 .container {
   display: flex;
+  flex-direction: column;
   min-height: 100vh;
+}
+
+/* TOP HEADER BAR */
+.top-header {
+  background-color: #ffffff;
+  width: 100%;
+  padding: 16px 24px;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  z-index: 10;
+  position: sticky;
+  top: 0;
+}
+
+.logo {
+  color: var(--primary-color);
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.logo i {
+  font-size: 1.2em;
 }
 
 /* HERO SECTION STYLING */
@@ -94,154 +123,11 @@ body {
   margin-right: 8px;
 }
 
-/* SIDEBAR */
-.sidebar {
-  background-color: #ffffff;
-  width: 250px;
-  min-width: 250px;
-  padding: 24px;
-  border-right: 1px solid var(--border-color);
-  box-shadow: var(--shadow-md);
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.3s ease;
-  z-index: 10;
-}
-
-.sidebar-header {
-  margin-bottom: 20px;
-}
-
-.logo {
-  color: var(--primary-color);
-  margin-top: 0;
-  margin-bottom: 0;
-  font-size: 24px;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  animation: fadeIn 0.5s ease-out;
-}
-
-.logo i {
-  font-size: 1.2em;
-}
-
-.sidebar ul {
-  list-style: none;
-  margin: 24px 0;
-  padding: 0;
-}
-
-.sidebar ul li {
-  padding: 12px 0;
-  color: var(--text-light);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-weight: 500;
-  border-radius: 8px;
-  padding-left: 8px;
-  margin-bottom: 4px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.sidebar ul li:hover {
-  color: var(--primary-color);
-  background-color: var(--background-light);
-  transform: translateX(4px);
-}
-
-.sidebar ul li.active {
-  font-weight: 600;
-  color: var(--primary-color);
-  background-color: var(--background-light);
-  position: relative;
-}
-
-.sidebar ul li.active::before {
-  content: '';
-  position: absolute;
-  left: -24px;
-  top: 0;
-  height: 100%;
-  width: 3px;
-  background-color: var(--primary-color);
-}
-
-/* LOGIN SECTION IN SIDEBAR */
-.login-section {
-  margin-top: auto;
-  border-top: 1px solid var(--border-color);
-  padding-top: 24px;
-}
-
-.login-section h3 {
-  margin-bottom: 16px;
-  font-weight: 600;
-  color: var(--text-medium);
-}
-
-.login-section input {
-  display: block;
-  width: 100%;
-  margin-bottom: 12px;
-  padding: 12px 16px;
-  border: 1px solid #cbd5e0;
-  border-radius: 8px;
-  transition: all 0.2s ease;
-  background-color: var(--background-light);
-}
-
-.login-section input:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
-}
-
-.login-section button {
-  background-color: var(--primary-color);
-  color: #ffffff;
-  border: none;
-  padding: 12px;
-  width: 100%;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.2s ease;
-}
-
-.login-section button:hover {
-  background-color: var(--primary-hover);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-}
-
-.login-section button:active {
-  transform: translateY(0);
-}
-
-.login-section .signup {
-  color: var(--primary-color);
-  cursor: pointer;
-  text-decoration: underline;
-  margin-top: 12px;
-  font-size: 14px;
-  text-align: center;
-  transition: color 0.2s ease;
-}
-
-.login-section .signup:hover {
-  color: var(--primary-hover);
-}
-
 /* MAIN CONTENT */
 .main-content {
   flex: 1;
   padding: 0;
-  width: calc(100% - 250px);
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -422,7 +308,7 @@ body {
   background-color: var(--primary-hover);
 }
 
-/* FIX: Make the image buttons the same size */
+/* IMAGE BUTTONS */
 .image-buttons {
   display: flex;
   gap: 12px;
@@ -444,9 +330,10 @@ body {
   transition: all 0.3s ease;
   box-shadow: 0 3px 6px rgba(108, 99, 255, 0.2);
   height: 48px; /* Ensure consistent height */
-  padding: 0; /* Remove padding that might affect dimensions */
+  padding: 0 16px; /* Add horizontal padding */
   box-sizing: border-box;
   text-align: center;
+  margin: 0; /* Remove any margin that might cause unevenness */
 }
 
 .image-buttons button:hover,
@@ -456,12 +343,19 @@ body {
   box-shadow: 0 5px 10px rgba(108, 99, 255, 0.3);
 }
 
+.image-buttons i {
+  margin-right: 8px;
+  font-size: 18px;
+}
+
 .upload-btn, 
 #takePhotoBtn {
   width: 100%;
   border: none;
   margin: 0;
+  line-height: 48px; /* Match the height for vertical centering */
 }
+
 /* CTA Button */
 .cta-button {
   background-color: #6c63ff;
@@ -789,10 +683,6 @@ body {
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
-  .container {
-    flex-direction: column;
-  }
-  
   .hero-section {
     padding: 40px 20px;
     border-radius: 0;
@@ -806,34 +696,12 @@ body {
     font-size: 1.1rem;
   }
   
-  .sidebar {
-    width: 100%;
-    min-width: auto;
-    border-right: none;
-    border-bottom: 1px solid var(--border-color);
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px;
+  .top-header {
+    padding: 12px 16px;
   }
   
-  .sidebar-header,
-  .sidebar ul,
-  .login-section {
-    margin: 0;
-    padding: 0;
-  }
-  
-  .sidebar-header h2 {
-    margin-bottom: 0;
-  }
-  
-  .sidebar ul {
-    display: none; /* hide nav items on narrow screens */
-  }
-  
-  .login-section {
-    display: none; /* hide login on narrow screens */
+  .logo {
+    font-size: 20px;
   }
   
   .main-content {
@@ -855,14 +723,6 @@ body {
   
   .image-buttons {
     flex-direction: column;
-  }
-  
-  .hero-title {
-    font-size: 1.75rem;
-  }
-  
-  .hero-subtitle {
-    font-size: 1rem;
   }
   
   .recommendation {
