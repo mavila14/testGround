@@ -66,6 +66,64 @@
           step="0.01"
         />
 
+        <!-- Advanced Analysis Section -->
+        <div class="advanced-toggle" id="advancedToggle">
+          <i class="fas fa-chevron-down"></i>
+          <span>Advanced Analysis Options</span>
+        </div>
+        
+        <div class="advanced-section" id="advancedSection">
+          <div class="advanced-fields">
+            <h3>Additional Information</h3>
+            
+            <label for="itemPurpose">Purpose of Purchase</label>
+            <select id="itemPurpose">
+              <option value="">-- Select Purpose --</option>
+              <option value="necessity">Necessity (Basic Need)</option>
+              <option value="improvement">Life Improvement</option>
+              <option value="convenience">Convenience</option>
+              <option value="entertainment">Entertainment</option>
+              <option value="status">Status Symbol</option>
+              <option value="investment">Investment</option>
+            </select>
+            
+            <label for="itemFrequency">Frequency of Use</label>
+            <select id="itemFrequency">
+              <option value="">-- Select Frequency --</option>
+              <option value="daily">Daily</option>
+              <option value="weekly">Weekly</option>
+              <option value="monthly">Monthly</option>
+              <option value="rarely">Rarely</option>
+              <option value="once">One-time Use</option>
+            </select>
+            
+            <label for="itemLifespan">Expected Lifespan (Years)</label>
+            <input
+              type="number"
+              id="itemLifespan"
+              placeholder="Enter expected years of use"
+              min="0"
+              step="0.5"
+            />
+            
+            <label for="alternativeCost">Cost of Alternative ($)</label>
+            <input
+              type="number"
+              id="alternativeCost"
+              placeholder="Cost of cheaper alternative"
+              min="0"
+              step="0.01"
+            />
+            
+            <label for="userNotes">Additional Context</label>
+            <textarea
+              id="userNotes"
+              placeholder="Add any relevant details about your purchase decision"
+              rows="4"
+            ></textarea>
+          </div>
+        </div>
+
         <div class="image-section">
           <p>Image of the Item (Optional)</p>
           <div class="image-buttons">
