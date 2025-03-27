@@ -432,7 +432,6 @@ body {
 .image-buttons button,
 .image-buttons label {
   flex: 1;
-  height: 55px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -444,6 +443,10 @@ body {
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 3px 6px rgba(108, 99, 255, 0.2);
+  height: 48px; /* Ensure consistent height */
+  padding: 0; /* Remove padding that might affect dimensions */
+  box-sizing: border-box;
+  text-align: center;
 }
 
 .image-buttons button:hover,
@@ -453,14 +456,12 @@ body {
   box-shadow: 0 5px 10px rgba(108, 99, 255, 0.3);
 }
 
-.upload-btn, #takePhotoBtn {
+.upload-btn, 
+#takePhotoBtn {
   width: 100%;
-  text-align: center;
-  box-sizing: border-box;
-  padding: 0;
   border: none;
+  margin: 0;
 }
-
 /* CTA Button */
 .cta-button {
   background-color: #6c63ff;
