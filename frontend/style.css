@@ -332,6 +332,7 @@ body {
   padding: 12px 16px;
   border-radius: 10px;
   transition: all 0.3s ease;
+  color: #6366F1;
 }
 
 .advanced-toggle:hover {
@@ -340,7 +341,7 @@ body {
 
 .advanced-toggle i {
   margin-right: 10px;
-  color: var(--primary-color);
+  color: #6366F1;
   transition: transform 0.3s ease;
 }
 
@@ -350,7 +351,7 @@ body {
 
 .advanced-toggle span {
   font-weight: 600;
-  color: var(--text-medium);
+  color: #6366F1;
 }
 
 .advanced-section {
@@ -436,21 +437,38 @@ body {
 .image-buttons button,
 .image-buttons label {
   flex: 1;
-  height: 48px;
+  height: 55px;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #6c63ff;
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 6px rgba(108, 99, 255, 0.2);
+}
+
+.image-buttons button:hover,
+.image-buttons label:hover {
+  background-color: #5a52e0;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(108, 99, 255, 0.3);
 }
 
 .upload-btn, #takePhotoBtn {
   width: 100%;
   text-align: center;
   box-sizing: border-box;
+  padding: 0;
+  border: none;
 }
 
 /* CTA Button */
 .cta-button {
-  background-color: var(--primary-color);
+  background-color: #6c63ff;
   color: #ffffff;
   padding: 16px 24px;
   border: none;
@@ -470,6 +488,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 10px;
+  box-shadow: 0 4px 10px rgba(108, 99, 255, 0.3);
 }
 
 .cta-button:hover {
